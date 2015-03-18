@@ -396,7 +396,11 @@ namespace Microsoft.Build.Tasks.Deployment.ManifestUtilities
                     }
                 }
             }
+#if __MonoCS__
+            retSet.FromXml(retSetElement.Copy());
+#else
             retSet = new ReadOnlyPermissionSet(retSetElement);
+#endif
             return retSet;
         }
 
@@ -538,7 +542,11 @@ namespace Microsoft.Build.Tasks.Deployment.ManifestUtilities
             PermissionSet ps = new PermissionSet(PermissionState.None);
             try
             {
+#if __MonoCS__
+                ps.FromXml(se.Copy());
+#else
                 ps = new ReadOnlyPermissionSet(se);
+#endif
             }
             catch (ArgumentException ex)
             {

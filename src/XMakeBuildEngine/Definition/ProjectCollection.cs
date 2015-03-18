@@ -384,7 +384,12 @@ namespace Microsoft.Build.Evaluation
                     // Use .CodeBase instead of .Location, because .Location doesn't
                     // work when Microsoft.Build.dll has been shadow-copied, for example
                     // in scenarios where NUnit is loading Microsoft.Build.
+#if __MonoCS__
+                    Console.WriteLine("Version:" + FileVersionInfo.GetVersionInfo(FileUtilities.ExecutingAssemblyPath).ProductVersion);
+                    s_engineVersion = new Version("14.0.0.0");
+#else
                     s_engineVersion = new Version(FileVersionInfo.GetVersionInfo(FileUtilities.ExecutingAssemblyPath).ProductVersion);
+#endif
                 }
 
                 return s_engineVersion;

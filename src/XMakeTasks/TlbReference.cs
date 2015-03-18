@@ -201,9 +201,11 @@ namespace Microsoft.Build.Tasks
                     case UtilitiesProcessorArchitecture.X86:
                         tlbImp.Machine = "X86";
                         break;
+#if !__MonoCS__
                     case UtilitiesProcessorArchitecture.ARM:
                         tlbImp.Machine = "ARM";
                         break;
+#endif
                     case null:
                         break;
                     default:
@@ -263,8 +265,10 @@ namespace Microsoft.Build.Tasks
                         case UtilitiesProcessorArchitecture.X86:
                             flags |= TypeLibImporterFlags.ImportAsX86;
                             break;
+#if !__MonoCS__
                         case UtilitiesProcessorArchitecture.ARM:
                             flags |= TypeLibImporterFlags.ImportAsArm;
+#endif
                             break;
 
                         default:
